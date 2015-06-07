@@ -1,16 +1,37 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, current_app, jsonify
+from flask import Blueprint, current_app, jsonify, request
+from flask.ext.cors import cross_origin
+import csv
 
+from search import engine, filters
 
 api = Blueprint('api', __name__)
 
-
-def data_path(filename):
-    data_path = current_app.config['DATA_PATH']
-    return u"%s/%s" % (data_path, filename)
-
+# TODO: specify index in config so one can 
+# do fullindex and switch to new index
+searcher = engine.Engine()
 
 @api.route('/search', methods=['GET'])
+@cross_origin()
 def search():
-    return jsonify({'products': []})
+    # TODO: use some form binding for validation
+    lng = float(request.args.get('lng'))
+    lat = float(request.args.get('lat'))
+    radius= float(request.args.get('radius'))
+    count = int(request.args.get('count', 10))
+    tags = request.args.getlist('tags[]')
+    #print lng, lat, tags, radius
+    
+    if tags:
+        filts = [filters.TagFilter(tags)]
+    else:
+        filts = None
+        
+    try:
+        res = searcher.find(lng, lat, radius, filters=filts, count=count)
+    except Exception as exc:
+        print 'exc', exc
+        res = []
+
+    return jsonify({'products': [p.to_dict() for p in res]})
