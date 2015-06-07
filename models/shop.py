@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class Shop(object):
 
     def __init__(self, id, name, lat, lng, tags=None):

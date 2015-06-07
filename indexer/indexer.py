@@ -45,7 +45,7 @@ class ProductIndexer(Engine):
         products.next()
         for product in products:
             shop = shop_dict[product[1]]
-            #id, shop_id, title, popularity, quantity, lng, lat
+            # id, shop_id, title, popularity, quantity, lng, lat
             self.index_product(
                 Product(product[0],
                         product[1],
