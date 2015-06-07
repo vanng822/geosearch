@@ -17,6 +17,3 @@ class Shop(object):
 
     def add_tag(self, tag):
         self.tags.append(tag)
-
-    def contains_tag(self, tag):
-        return tag in self.tags
