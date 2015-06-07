@@ -157,8 +157,21 @@
     this.prefs = prefs;
 
     this.search = function(cb) {
-      $.getJSON('http://localhost:5000/search', function(data) {
-        cb(null, data.products);
+      var data = {
+         count: this.prefs.count,
+         radius: this.prefs.radius,
+         lng: this.prefs.position.lng,
+         lat: this.prefs.position.lat,
+         tags: this.prefs.tags
+      };
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'http://localhost:5000/search',
+          data: data,
+          success: function(res) {
+            cb(null, res.products);
+          }
       });
     };
   };
