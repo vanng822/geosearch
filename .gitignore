@@ -1,0 +1,7 @@
+/python2.7/
+/index/
+*.pyc
+.DS_Store
+.project
+.pydevproject
+.settings/
