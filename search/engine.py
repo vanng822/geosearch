@@ -23,8 +23,8 @@ class Engine(object):
             Args:
                 lng: longitude of geopoint
                 lat: latitude of geopoint
-                radius: distance in meters
-                count: numer of items to return
+                radius: distance from geopoint in meters
+                count: number of items to return
                 filters: list of filters implementing Filter
                 sort_func: function(items) for sorting
             Returns:
