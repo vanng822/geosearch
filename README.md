@@ -1,9 +1,9 @@
-== Geosearch ==
+## Geosearch
 
 Index and search on data containing geo-point.
 
 
-== Install deps ==
+## Install deps
 
 	cd deps/spatialindex-src-1.8.5
 	./configure
