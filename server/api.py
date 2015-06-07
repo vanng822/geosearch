@@ -4,7 +4,7 @@ from flask import Blueprint, current_app, jsonify, request
 from flask.ext.cors import cross_origin
 import csv
 
-from search import engine, filters
+from search import engine, filters, sorting
 
 api = Blueprint('api', __name__)
 
@@ -29,7 +29,7 @@ def search():
         filts = None
         
     try:
-        res = searcher.find(lng, lat, radius, filters=filts, count=count)
+        res = searcher.find(lng, lat, radius, filters=filts, count=count, sort_func=sorting.sort_by_popularity)
     except Exception as exc:
         print 'exc', exc
         res = []
