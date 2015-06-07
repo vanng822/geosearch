@@ -4,13 +4,13 @@ from flask import Blueprint, current_app, jsonify, request
 from flask.ext.cors import cross_origin
 import csv
 
-from search import engine, filters, sorting
+from search import Engine, TagFilter, sort_by_popularity
 
 api = Blueprint('api', __name__)
 
 # TODO: specify index in config so one can 
 # do fullindex and switch to new index
-searcher = engine.Engine()
+searcher = Engine()
 
 @api.route('/search', methods=['GET'])
 @cross_origin()
@@ -24,12 +24,12 @@ def search():
     #print lng, lat, tags, radius
     
     if tags:
-        filts = [filters.TagFilter(tags)]
+        filts = [TagFilter(tags)]
     else:
         filts = None
         
     try:
-        res = searcher.find(lng, lat, radius, filters=filts, count=count, sort_func=sorting.sort_by_popularity)
+        res = searcher.find(lng, lat, radius, filters=filts, count=count, sort_func=sort_by_popularity)
     except Exception as exc:
         print 'exc', exc
         res = []

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from search.engine import Engine
+from search import Engine
 from models import Shop, Product
 
 import csv
@@ -66,7 +66,7 @@ class ProductIndexer(Engine):
 
     def search_test(self):
         try:
-            self.find(18.0649000, 59.3325800, 100, 10)
+            print len(self.find(18.0649000, 59.3325800, 100, 10))
         except Exception as exc:
             print exc
 
@@ -84,4 +84,4 @@ class ProductIndexer(Engine):
         taggings_file.close()
         tags_file.close()
 
-        print len(self.search_test())
+        self.search_test()
