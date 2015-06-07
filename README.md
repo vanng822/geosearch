@@ -1,8 +1,8 @@
 ## Geosearch
 
-Index and search on data containing geo-point.
+Index and search on data containing geo-point within a circle.
 It uses RTree and SpatialIndex for looking for items inside bbox.
-Distance filter is applied further on result if needed.
+Radius filter is applied further on result if needed.
 
 
 ## Install deps
