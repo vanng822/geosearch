@@ -1,6 +1,5 @@
 import unittest
-from search import TagFilter
-from indexer import ProductIndexer
+from search import TagFilter, Engine
 from models import Product
 
 
@@ -17,9 +16,12 @@ class EngineTest(unittest.TestCase):
                 41.863123, 12.500882, '3', tags=['hej'])  # 2km
         ]
 
-        self.searcher = ProductIndexer(index_name="")
+        self.searcher = Engine(index_name="")
         for item in self.items:
-            self.searcher.index_product(item)
+            self.searcher.idx.insert(int(item.id, 16),
+                                     (item.lat, item.lng,
+                                      item.lat, item.lng),
+                                     obj=item)
 
     def _create_product(self, lat, lng, delta_id, tags=None):
         p = Product('567d07d533d541dd8ad4753622e76243' + delta_id,
