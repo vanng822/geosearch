@@ -7,9 +7,12 @@ from search import Engine, TagFilter, sort_by_popularity
 
 api = Blueprint('api', __name__)
 
-# TODO: specify index in config so one can
-# do fullindex and switch to new index
-searcher = Engine()
+searcher = None
+
+
+def create_searcher(index_name):
+    global searcher
+    searcher = Engine(index_name)
 
 
 @api.route('/search', methods=['GET'])

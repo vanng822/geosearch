@@ -2,13 +2,14 @@
 
 import os
 from flask import Flask
-from server.api import api
+from server.api import api, create_searcher
 
 
 def create_app(settings_overrides=None):
     app = Flask(__name__)
     configure_settings(app, settings_overrides)
     configure_blueprints(app)
+    create_searcher(app.config.get('INDEX_NAME'))
     return app
 
 
@@ -18,7 +19,8 @@ def configure_settings(app, settings_override):
     app.config.update({
         'DEBUG': True,
         'TESTING': False,
-        'DATA_PATH': data_path
+        'DATA_PATH': data_path,
+        'INDEX_NAME': 'index/products'
     })
     if settings_override:
         app.config.update(settings_override)

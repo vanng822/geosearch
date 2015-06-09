@@ -17,6 +17,7 @@ from server.app import create_app
 
 
 class TestResponseClass(Flask.response_class):
+
     @property
     def json(self):
         return json.loads(self.data)
@@ -53,7 +54,8 @@ def humanize_werkzeug_client(client_method):
 @pytest.fixture(scope='session', autouse=True)
 def app(request):
     app = create_app({
-        'TESTING': True
+        'TESTING': True,
+        'INDEX_NAME': ''
     })
 
     # Establish an application context before running the tests.
