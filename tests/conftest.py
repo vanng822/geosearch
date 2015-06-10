@@ -14,6 +14,7 @@ package = os.path.join(root, '..')
 sys.path.insert(0, os.path.abspath(package))
 
 from server.app import create_app
+from server.api import create_searcher
 
 
 class TestResponseClass(Flask.response_class):
