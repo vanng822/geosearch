@@ -27,9 +27,9 @@ def search():
     # print lng, lat, tags, radius
 
     if tags:
-        filts = [TagFilter(tags)]
+        filts = (TagFilter(tags),)
     else:
-        filts = None
+        filts = tuple()
 
     try:
         res = searcher.find(lng,

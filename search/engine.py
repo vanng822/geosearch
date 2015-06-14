@@ -13,7 +13,7 @@ class Engine(object):
         self.idx = rtree.index.Rtree(self.index_name)
         self.strict_radius = strict_radius
 
-    def find(self, lng, lat, radius, count=10, filters=None, sort_func=None):
+    def find(self, lng, lat, radius, count=10, filters=tuple(), sort_func=None):
         """ find will search for entity that located within circle of radius
 
             It uses bbox model to look for all entities
@@ -43,9 +43,8 @@ class Engine(object):
             radius_filter = RadiusFilter(lng, lat, radius)
             result = radius_filter.apply(result)
 
-        if filters is not None:
-            for filt in filters:
-                result = filt.apply(result)
+        for filt in filters:
+            result = filt.apply(result)
 
         if sort_func is not None:
             result = sort_func(result)
