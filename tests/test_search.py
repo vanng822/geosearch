@@ -52,7 +52,7 @@ def test_api(client):
 
     # 2 km, tag hej
     res = client.get(
-        '/search?count=10&radius=2001&lng={lng}&lat={lat}&tags[]=hej'.format(lng=lng, lat=lat))
+        '/search?count=10&radius=2001&lng={lng}&lat={lat}&tags=hej'.format(lng=lng, lat=lat))
 
     assert res.status_code == 200
     data = json.loads(res.data)
@@ -60,7 +60,7 @@ def test_api(client):
 
     # 2 km, tag ho
     res = client.get(
-        '/search?count=10&radius=2001&lng={lng}&lat={lat}&tags[]=ho'.format(lng=lng, lat=lat))
+        '/search?count=10&radius=2001&lng={lng}&lat={lat}&tags=ho'.format(lng=lng, lat=lat))
 
     assert res.status_code == 200
     data = json.loads(res.data)
@@ -68,15 +68,23 @@ def test_api(client):
 
     # 1 km, tag ho
     res = client.get(
-        '/search?count=10&radius=1001&lng={lng}&lat={lat}&tags[]=ho'.format(lng=lng, lat=lat))
+        '/search?count=10&radius=1001&lng={lng}&lat={lat}&tags=ho'.format(lng=lng, lat=lat))
 
     assert res.status_code == 200
     data = json.loads(res.data)
     assert len(data['products']) == 2
 
+    # 2 km, tag hej ho
+    res = client.get(
+        '/search?count=10&radius=2001&lng={lng}&lat={lat}&tags=hej&tags=ho'.format(lng=lng, lat=lat))
+
+    assert res.status_code == 200
+    data = json.loads(res.data)
+    assert len(data['products']) == 1
+
     # 1 km, tag hej
     res = client.get(
-        '/search?count=10&radius=1001&lng={lng}&lat={lat}&tags[]=hej'.format(lng=lng, lat=lat))
+        '/search?count=10&radius=1001&lng={lng}&lat={lat}&tags=hej'.format(lng=lng, lat=lat))
 
     assert res.status_code == 200
     data = json.loads(res.data)

@@ -8,3 +8,4 @@ py==1.4.27
 pytest==2.7.0
 wsgiref==0.1.2
 rtree==0.8.2
+WTForms==2.0.2

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from flask.ext.cors import cross_origin
 
 from search import Engine, TagFilter, sort_by_popularity
-
+from form_schema import SearchForm
 api = Blueprint('api', __name__)
 
 searcher = None
@@ -18,25 +18,22 @@ def create_searcher(index_name):
 @api.route('/search', methods=['GET'])
 @cross_origin()
 def search():
-    # TODO: use some form binding for validation
-    lng = float(request.args.get('lng'))
-    lat = float(request.args.get('lat'))
-    radius = float(request.args.get('radius'))
-    count = int(request.args.get('count', 10))
-    tags = request.args.getlist('tags[]')
-    # print lng, lat, tags, radius
 
-    if tags:
-        filts = (TagFilter(tags),)
+    form = SearchForm(request.args)
+    if not form.validate():
+        abort(400)
+
+    if form.tags.data:
+        filts = (TagFilter(form.tags.data),)
     else:
         filts = tuple()
 
     try:
-        res = searcher.find(lng,
-                            lat,
-                            radius,
+        res = searcher.find(form.lng.data,
+                            form.lat.data,
+                            form.radius.data,
                             filters=filts,
-                            count=count,
+                            count=form.count.data,
                             sort_func=sort_by_popularity)
     except Exception as exc:
         print 'exc', exc

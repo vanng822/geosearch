@@ -165,6 +165,7 @@
          tags: this.prefs.tags
       };
       $.ajax({
+        traditional: true,
         type: 'GET',
         dataType: 'json',
         url: 'http://localhost:5000/search',
