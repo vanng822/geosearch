@@ -4,7 +4,10 @@ python:
   - "2.7"
 
 install:
-  - cd deps/spatialindex-src-1.8.5/ && ./configure && make && sudo make install
+  - cd deps/spatialindex-src-1.8.5/
+  - ./configure
+  - make
+  - sudo make install
   - "pip install -r requirements.txt"
 
 script:
