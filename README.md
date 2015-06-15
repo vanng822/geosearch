@@ -9,10 +9,14 @@ Radius filter is applied further on result if needed.
 
 ### libspatialindex
 
+	# From source
 	cd deps/spatialindex-src-1.8.5
 	./configure
 	make
 	make install
+	
+	# Ubuntu
+	sudo apt-get install libspatialindex-dev
 	
 You may need to run sudo and make sure install-sh executable
 
