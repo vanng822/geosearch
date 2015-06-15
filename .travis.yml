@@ -4,11 +4,7 @@ python:
   - "2.7"
 
 install:
-  - sudo apt-get install automake
-  - cd deps/spatialindex-src-1.8.5/
-  - ./configure
-  - make
-  - sudo make install
+  - sudo apt-get install libspatialindex-dev
   - "pip install -r requirements.txt"
 
 script:
