@@ -30,13 +30,13 @@ class RadiusFilter(Filter):
         self.radius = radius
 
     def apply(self, items):
-        result = []
-        for item in items:
-            if (get_distance(self.lng, self.lat, item.lng, item.lat)
-                    <= self.radius):
-                result.append(item)
-
-        return result
+        return [
+            item for item in items if (get_distance(self.lng,
+                                                    self.lat,
+                                                    item.lng,
+                                                    item.lat)
+                                       <= self.radius)
+        ]
 
 
 class TagFilter(Filter):
