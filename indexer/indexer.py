@@ -71,17 +71,13 @@ class ProductIndexer(Engine):
             print exc
 
     def full_index(self):
-        products_file = open(data_path('products.csv'))
-        shops_file = open(data_path('shops.csv'))
-        taggings_file = open(data_path('taggings.csv'))
-        tags_file = open(data_path('tags.csv'))
-        self.index(csv.reader(products_file),
-                   csv.reader(shops_file),
-                   csv.reader(taggings_file),
-                   csv.reader(tags_file))
-        products_file.close()
-        shops_file.close()
-        taggings_file.close()
-        tags_file.close()
+        with open(data_path('products.csv')) as products_file, \
+                open(data_path('shops.csv')) as shops_file, \
+                open(data_path('taggings.csv')) as taggings_file, \
+                open(data_path('tags.csv')) as tags_file:
+            self.index(csv.reader(products_file),
+                       csv.reader(shops_file),
+                       csv.reader(taggings_file),
+                       csv.reader(tags_file))
 
         self.search_test()
