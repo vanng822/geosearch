@@ -4,7 +4,7 @@ Jinja2==2.11.3
 MarkupSafe==0.23
 Werkzeug==0.15.3
 itsdangerous==0.24
-py==1.4.27
+py==1.10.0
 pytest==2.7.0
 wsgiref==0.1.2
 rtree==0.8.2
